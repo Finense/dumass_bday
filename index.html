@@ -158,6 +158,11 @@
 </body>
 <script>
     const datetxt = "17th February";
+    const letterMessage = `blah blah blah
+                            blah blah blah
+                            blah blah blah
+                            blah blah blah
+                            blah blah blah`;
     const charArrDate = datetxt.split('');
     let currentIndex = 0;
     const dateOfBirth = document.querySelector(".date__of__birth span");
@@ -184,6 +189,9 @@
     const closeButton = document.querySelector('.fa-xmark');
     const headingCard = document.querySelector('.card2 h3');
     const messageCard = document.querySelector('.card2 h2');
+    if (messageCard && !messageCard.dataset.fullText) {
+        messageCard.dataset.fullText = (messageCard.innerText || letterMessage).trim();
+    }
     let messageInterval;
 
     const resetCardCopy = () => {
@@ -202,7 +210,7 @@
     const animateMessage = () => {
         if (!messageCard) return;
         clearInterval(messageInterval);
-        const fullText = (messageCard.dataset.fullText || messageCard.innerText || "").trim();
+        const fullText = (messageCard.dataset.fullText || letterMessage).trim();
         messageCard.dataset.fullText = fullText;
         messageCard.textContent = '';
         messageCard.classList.add('visible');

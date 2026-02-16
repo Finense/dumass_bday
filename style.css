@@ -165,6 +165,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     font-family: "Titan One", sans-serif;
     font-size: 3rem;
     flex-direction: column;
@@ -187,8 +188,9 @@ body {
 .title .happy span, .title .birthday span{
     transform: translateY(50px);
     opacity: 0;
-    visibility: hidden;
+    visibility: visible;
     animation: txtTranslateY .5s var(--t) forwards;
+    will-change: transform, opacity;
 }
 @keyframes txtTranslateY{
     100%{
@@ -233,34 +235,29 @@ body {
 .date__of__birth{
     border: 3px solid var(--color-black);
     position: relative;
-    transform: translateY(-100px);
-    z-index: -1;
+    transform: translateY(-16px) scale(0.92);
+    z-index: 1;
     opacity: 0;
-    visibility: hidden;
-    width: 0px;
-    animation: dateOfBirth 5s 9s forwards;
+    visibility: visible;
+    padding: 10px 18px;
+    gap: 10px;
+    width: auto;
+    justify-content: center;
+    white-space: nowrap;
+    animation: dateOfBirth 1.6s 6s forwards ease-out;
 }
 @keyframes dateOfBirth{
-    20%,40%{
-        width: 0px;
-        height: 0;
-        transform: translateY(0px);
-        opacity: 1;
-        visibility: visible;
+    0%{
+        opacity: 0;
+        transform: translateY(-10px) scale(0.9);
     }
-    45%{
-        transform: translateY(0px);
+    60%{
         opacity: 1;
-        visibility: visible;
-        width: 300px;
-        height: 0px;
+        transform: translateY(2px) scale(1.02);
     }
-    50%,100%{
-        transform: translateY(0px);
+    100%{
         opacity: 1;
-        visibility: visible;
-        width: 300px;
-        height: 50px;
+        transform: translateY(0) scale(1);
     }
 }
 .name{
@@ -272,7 +269,8 @@ body {
 }
 .date__of__birth span, .name span{
     font-weight: bold;
-    margin: 0px 40px;
+    margin: 0px 12px;
+    letter-spacing: 1px;
 }
 .date__of__birth span{
     font-size: 1.2rem;
@@ -1037,6 +1035,8 @@ body {
     font-size: 22px;
     opacity: 0;
     visibility: hidden;
+    white-space: pre-line;
+    line-height: 1.5;
 }
 .boxMail .boxMail-container.play .card2 h2{
     animation: texth2 0.8s 2s forwards;
