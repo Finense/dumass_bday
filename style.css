@@ -167,7 +167,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: "Titan One", sans-serif;
-    font-size: 3rem;
+    font-size: 2.7rem;
     flex-direction: column;
     perspective: 1000px;
 }
@@ -364,7 +364,7 @@ body {
 .image-card{
     position: relative;
     width: 100%;
-    max-width: 242px;
+    max-width: 218px;
     aspect-ratio: 1;
     border-radius: 26px;
     overflow: hidden;
@@ -581,7 +581,7 @@ body {
     bottom: 180px;
     left: 600px;
     transform: scale(0);
-    animation: scaleCricle 3s 10s forwards ease-in-out;
+    animation: scaleCricle 3s 6s forwards ease-in-out;
 }
 
 
@@ -787,7 +787,7 @@ body {
         display: flex;
         justify-content: center;
         font-family: "Titan One", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.35rem;
         letter-spacing: 8px;
         flex-direction: column;
         perspective: 1000px;
@@ -898,7 +898,7 @@ body {
         max-width: 520px;
     }
     .image-card{
-        max-width: 198px;
+        max-width: 178px;
         aspect-ratio: 1;
         border-radius: 22px;
         border-width: 4px;
