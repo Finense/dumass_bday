@@ -263,9 +263,9 @@ body {
     }
 }
 .name{
-    position: absolute;
-    padding: 0px 20px;
-    bottom: -20px;
+    position: relative;
+    padding: 6px 20px;
+    margin-top: 6px;
     border: 3px solid var(--color-black);
     font-family: 'Dancing Script', cursive;
 }
@@ -339,6 +339,49 @@ body {
     border: 2px dashed rgba(255,120,130,0.45);
     animation: rotateCricle 10s linear infinite;
     pointer-events:none;
+}
+.image-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    width: 100%;
+    max-width: 780px;
+    justify-items: center;
+    padding: 0 10px;
+    margin-bottom: 12px;
+}
+.image-card{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 5px solid var(--color-black);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12), 0 0 20px var(--glow);
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.35), transparent 40%), var(--color-white);
+    transform: translateY(60px) scale(0.92);
+    opacity: 0;
+    animation: photoRise 1s ease-out forwards;
+    animation-delay: calc(6.2s + var(--delay, 0s));
+}
+.image-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@keyframes photoRise{
+    0%{
+        transform: translateY(60px) scale(0.9);
+        opacity: 0;
+    }
+    60%{
+        transform: translateY(12px) scale(1.03);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 .cricle{
     position: absolute;
@@ -834,6 +877,18 @@ body {
  
             width: 84px;
 
+    }
+
+    .image-grid{
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        max-width: 520px;
+    }
+    .image-card{
+        width: 160px;
+        height: 160px;
+        border-radius: 22px;
+        border-width: 4px;
     }
 
     .content .right .image {
