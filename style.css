@@ -995,6 +995,19 @@ body {
     transform: rotate(-5deg);
     text-shadow: 0 0 5px white,
                 0 0 10px white;
+    margin-top: 12px;
+}
+.boxMail .boxMail-container .card1 .username{
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.boxMail .boxMail-container .card1 .username .underline{
+    display: none;
 }
 .boxMail .boxMail-container .card2{
     position: relative;
@@ -1015,11 +1028,12 @@ body {
     overflow: hidden;
     font-family: "Inter", serif;
     color: #fff;
-    transform: translate(0,0);
-    box-shadow: none;
+    transform: translate(20px,20px) rotate(-1deg);
+    box-shadow: -1px -1px 8px rgb(0, 0, 0, 0.4);
+    will-change: transform;
 }
 .boxMail .boxMail-container.play .card2-content{
-    animation: liftCard 0.9s 1.2s forwards ease, floaty 5s 2.2s ease-in-out infinite alternate;
+    animation: floaty 5s 1.2s ease-in-out infinite alternate;
 }
 .boxMail .boxMail-container.play .card2{
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.35));
