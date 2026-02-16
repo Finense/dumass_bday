@@ -14,6 +14,10 @@
     --color-heart: #FF7882;
     --color-bg-letter: #fff8e4;
     --color-border: #DACCBF;
+    --color-sunset: #ff9fb3;
+    --color-sunset-2: #ffd1dc;
+    --color-deep: #f24b8a;
+    --glow: rgba(255, 120, 130, 0.35);
 }
 html{
     height: 100%;
@@ -24,7 +28,26 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-image:linear-gradient(var(--color-pink), var(--color-pink));
+    background: radial-gradient(circle at 20% 20%, rgba(255, 195, 209, 0.6), transparent 40%),
+                radial-gradient(circle at 80% 10%, rgba(255, 160, 180, 0.45), transparent 35%),
+                linear-gradient(135deg, #fff6f9, #ffe5ef 40%, #f7e5ff 70%, #fff8ec);
+    background-size: 140% 140%;
+    animation: bgShift 18s ease-in-out infinite;
+}
+#wrapper::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.3), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255,120,130,0.18), transparent 35%);
+    mix-blend-mode: screen;
+    z-index:0;
+}
+@keyframes bgShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 #wrapper{
     position: relative;
@@ -78,7 +101,7 @@ body {
 #btn__letter{
     position: relative;
     margin-top: 30px;
-    background-color: var(--color-text-pink);
+    background: linear-gradient(120deg, #ff9fb3, #ff6f91, #ffcfd2);
     outline: none;
     padding: 5px 15px;
     font-size: 1rem;
@@ -92,6 +115,8 @@ body {
     z-index: 2;
     transform: scale(1);
     transition: all .5s ease-in-out;
+    box-shadow: 0 12px 35px var(--glow), 0 0 0 0 rgba(255, 120, 130, 0.2);
+    overflow: hidden;
 }
 #btn__letter:active{
     transform: scale(0.7);
@@ -103,11 +128,26 @@ body {
     border-color: var(--color-heart);
     background-color: var(--color-heart);
     color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: 0 12px 35px rgba(255, 120, 130, 0.45), 0 0 25px rgba(255,255,255,0.6);
 }
 
 #btn__letter:hover i{
     animation: rotateHeart 1s infinite linear;
+}
+#btn__letter::after{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-20%;
+    width:20px;
+    height:200%;
+    background: rgba(255,255,255,0.45);
+    transform: rotate(20deg);
+    transition: transform 0.6s ease, left 0.6s ease;
+}
+#btn__letter:hover::after{
+    left:130%;
+    transform: rotate(25deg);
 }
 @keyframes rotateHeart{
     0%,50%, 100%{
@@ -259,11 +299,22 @@ body {
     display: flex;
     align-items: center;
     border: 6px solid var(--color-black);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.12), 0 0 30px var(--glow);
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.35), transparent 40%), var(--color-white);
 }
 .content .right .image img{
     width: 100%;
     object-fit: cover;
 
+}
+.content .right .image::after{
+    content:"";
+    position:absolute;
+    inset:-12px;
+    border-radius:50%;
+    border: 2px dashed rgba(255,120,130,0.45);
+    animation: rotateCricle 10s linear infinite;
+    pointer-events:none;
 }
 .cricle{
     position: absolute;
@@ -805,7 +856,8 @@ body {
 
 .boxMail{
     position: fixed;
-    background: rgb(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.68));
+    backdrop-filter: blur(4px);
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -813,9 +865,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: scale(0.3);
+    transform: scale(0.96);
     visibility: hidden;
-    transition: all 0.5s;
+    transition: opacity 0.5s ease, transform 0.6s ease;
     z-index: 100000000;
 }
 .boxMail.active{
@@ -829,17 +881,31 @@ body {
     height: 500px;
     display: flex;
     margin: 0;
-    transform: scale(0.9);
+    transform: scale(0.9) translateY(20px);
     -webkit-perspective: 2000px;
     perspective: 2000px;
-    transition: all 0.5s;
+    transition: filter 0.5s ease;
+    opacity: 0;
 }
-.boxMail .boxMail-container:hover{
-    transform: rotate(-5deg);
-    filter: drop-shadow(0 0 10px #FF7882);
+.boxMail.active .boxMail-container{
+    animation: popContainer 0.9s 0.1s forwards ease;
 }
-.boxMail .boxMail-container:hover .card1{
-    transform: translate(-187px, -250px) rotateY(-140deg);
+@keyframes popContainer{
+    0%{
+        opacity: 0;
+        transform: scale(0.9) translateY(20px) rotate(-6deg);
+    }
+    60%{
+        opacity: 1;
+        transform: scale(1.02) translateY(0) rotate(-3deg);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1) translateY(0) rotate(-2deg);
+    }
+}
+.boxMail .boxMail-container.play{
+    filter: drop-shadow(0 0 18px var(--glow));
 }
 .boxMail .boxMail-container .card1,
 .boxMail .boxMail-container .card2{
@@ -852,7 +918,6 @@ body {
     border: 1px solid black;
 }
 .boxMail .boxMail-container .card1 {
-    position: absolute;
     width: 50%;
     height: 100%;
     background: linear-gradient(to right, #FF7882, #FF7882 63%);
@@ -861,13 +926,22 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-.boxMail-container .card1{
     z-index: 1;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     transform-origin: left;
     transition: all 1s ease-in-out;
+}
+.boxMail .boxMail-container.play .card1{
+    animation: openCard 1.1s 0.8s forwards ease-in-out;
+}
+@keyframes openCard{
+    0%{
+        transform: translate(-50%, -50%) rotateY(0deg);
+    }
+    100%{
+        transform: translate(-187px, -250px) rotateY(-140deg);
+    }
 }
 .boxMail .boxMail-container .card1 .userImg{
     position: relative;
@@ -907,20 +981,42 @@ body {
     transform-style: preserve-3d;
     transform-origin: left;
     transition: all 1s;
+    overflow: hidden;
 }
 .boxMail .boxMail-container .card2 .card2-content {
     width: 100%;
     height: 100%;
     position: relative;
     background-color: #FF7882;
-    transition: all 1s;
     overflow: hidden;
     font-family: "Inter", serif;
     color: #fff;
+    transform: translate(0,0);
+    box-shadow: none;
 }
-.boxMail .boxMail-container:hover .card2-content{
-    transform: translate(20px, 20px);
-    box-shadow: -1px -1px 5px rgb(0, 0, 0, 0.4);
+.boxMail .boxMail-container.play .card2-content{
+    animation: liftCard 0.9s 1.2s forwards ease, floaty 5s 2.2s ease-in-out infinite alternate;
+}
+.boxMail .boxMail-container.play .card2{
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.35));
+}
+@keyframes liftCard{
+    0%{
+        transform: translate(0,0);
+        box-shadow: none;
+    }
+    100%{
+        transform: translate(20px, 20px);
+        box-shadow: -1px -1px 8px rgb(0, 0, 0, 0.4);
+    }
+}
+@keyframes floaty{
+    0%{
+        transform: translate(20px,20px) rotate(-1deg);
+    }
+    100%{
+        transform: translate(30px,14px) rotate(1deg);
+    }
 }
 .boxMail .boxMail-container .card2 h3{
     font-family: 'Dancing Script', cursive;
@@ -929,23 +1025,10 @@ body {
     visibility: hidden;
     font-size: 25px;
     text-shadow: 0 0 8px #FF7882;
+    transform: translateY(10px);
 }
-.boxMail .boxMail-container .card2:hover h3{
-    animation: texth3 3s forwards;
-    animation-delay: 2s;
-    transition: 1s;
-}
-@keyframes texth3{
-    0%{
-        opacity: 1;
-        visibility: visible;
-        padding: 20px 0px 10px 60px;
-    }
-    100%{
-        opacity: 1;
-        visibility: visible;
-        padding: 20px 0px 10px 152px; 
-    }
+.boxMail .boxMail-container.play .card2 h3{
+    animation: texth3 1s 1.6s forwards;
 }
 .boxMail .boxMail-container .card2 h2{
     font-family: 'Dancing Script', cursive;
@@ -953,18 +1036,35 @@ body {
     text-indent: 20px;
     font-size: 22px;
     opacity: 0;
+    visibility: hidden;
 }
-.boxMail .boxMail-container .card2:hover h2{
-    animation: texth2 2s forwards;
-    animation-delay: 4s;
-    transition: 1s;
+.boxMail .boxMail-container.play .card2 h2{
+    animation: texth2 0.8s 2s forwards;
+}
+.boxMail .boxMail-container .card2 h2.visible{
+    opacity: 1;
+    visibility: visible;
+}
+@keyframes texth3{
+    0%{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+    }
+    100%{
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 }
 @keyframes texth2{
     0%{
         opacity: 0;
+        transform: translateY(6px);
     }
     100%{
         opacity: 1;
+        transform: translateY(0);
     }
 }
 .boxMail .boxMail-container .card2 .card2-content .imageCute2{
@@ -973,17 +1073,18 @@ body {
     left: 20px;
     opacity: 0;
     transition: 1s;
+    transform: translateY(-12px) scale(0.9);
 }
-.boxMail .boxMail-container .card2 .card2-content:hover .imageCute2{
-    animation: cute3 1s linear infinite,
-                cute4 3s 2s forwards;
-    animation-delay: 2s;
+.boxMail .boxMail-container.play .card2 .card2-content .imageCute2{
+    animation: cute3 1.2s linear forwards,
+                cute4 4s 3.4s forwards;
+    animation-delay: 2.4s;
     transition: 1s;
 }
 @keyframes cute3{
     0%{
-        opacity: 1;
-        transform: rotate(0deg);
+        opacity: 0;
+        transform: rotate(0deg) translateY(-8px);
     }
     25%{
         opacity: 1;
