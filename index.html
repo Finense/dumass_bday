@@ -14,8 +14,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@400;600&display=swap"
         rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -159,105 +157,94 @@
 
 </body>
 <script>
-    let datetxt = "17th February";
-    let datatxtletter = "My love. You are a very special girl. I always silently thank you for coming into my life. Today, I wish you all the best, lots of health, and lots of joy. I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💕";
-    let titleLetter = "To you";
-    let charArrDate = datetxt.split('');
-    let charArrDateLetter = datatxtletter.split('');
-    let charArrTitle = titleLetter.split('');
+    const datetxt = "17th February";
+    const charArrDate = datetxt.split('');
     let currentIndex = 0;
-    let currentIndexLetter = 0;
-    let currentIndexTitle = 0;
-    let date__of__birth = document.querySelector(".date__of__birth span");
-    let text__letter = document.querySelector(".text__letter p");
+    const dateOfBirth = document.querySelector(".date__of__birth span");
+
     setTimeout(function () {
-        timeDatetxt = setInterval(function () {
+        const timeDatetxt = setInterval(function () {
             if (currentIndex < charArrDate.length) {
-                date__of__birth.textContent += charArrDate[currentIndex];
+                dateOfBirth.textContent += charArrDate[currentIndex];
                 currentIndex++;
             }
             else {
-                let i = document.createElement("i");
-                i.className = "fa-solid fa-star"
-                document.querySelector(".date__of__birth").prepend(i)
-                document.querySelector(".date__of__birth").appendChild(i.cloneNode(true))
-                clearInterval(timeDatetxt)
+                const i = document.createElement("i");
+                i.className = "fa-solid fa-star";
+                document.querySelector(".date__of__birth").prepend(i);
+                document.querySelector(".date__of__birth").appendChild(i.cloneNode(true));
+                clearInterval(timeDatetxt);
             }
-        }, 100)
-    }, 12000)
+        }, 100);
+    }, 7000);
 
-    var intervalContent;
-    var intervalTitle;
-    $("#btn__letter").on("click", function () {
-        $(".box__letter").slideDown()
-        setTimeout(function () {
-            $(".letter__border").slideDown();
-        }, 1000)
-        setTimeout(function () {
-            intervalTitle = setInterval(function () {
-                if (currentIndexTitle < charArrTitle.length) {
-                    document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
-                    let i = document.createElement("i");
-                    i.className = "fa-solid fa-heart"
-                    document.querySelector(".title__letter").appendChild(i)
-                    currentIndexTitle++;
-                }
-                else {
-                    clearInterval(intervalTitle)
-                }
-            }, 100)
-        }, 2000)
-        setTimeout(function () {
-            document.querySelector("#heart__letter").classList.add("animationOp");
-            document.querySelector(".love__img").classList.add("animationOp");
-            document.querySelector("#mewmew").classList.add("animationOp");
-        }, 2800)
-        setTimeout(function () {
-            document.querySelectorAll(".heart").forEach((item) => {
-                item.classList.add("animation")
-            })
-        }, 3500)
-        setTimeout(function () {
-            intervalContent = setInterval(function () {
-                if (currentIndexLetter < charArrDateLetter.length) {
-                    text__letter.textContent += charArrDateLetter[currentIndexLetter];
-                    currentIndexLetter++;
-                }
-                else {
-                    clearInterval(intervalContent)
-                }
-            }, 50)
-        }, 6000)
-    })
-    $(".close").on("click", function () {
-        clearInterval(intervalContent)
-        document.querySelector(".title__letter").textContent = "";
-        text__letter.textContent = "";
-        currentIndexLetter = 0
-        currentIndexTitle = 0
-        document.querySelector("#heart__letter").classList.remove("animationOp");
-        document.querySelector(".love__img").classList.remove("animationOp");
-        document.querySelector("#mewmew").classList.remove("animationOp");
-        document.querySelectorAll(".heart").forEach((item) => {
-            item.classList.remove("animation")
-        })
-        $(".box__letter").slideUp();
-        $(".letter__border").slideUp();
-    })
+    const mailBox = document.querySelector('.mail');
+    const boxmail = document.querySelector('.boxMail');
+    const boxmailContainer = document.querySelector('.boxMail-container');
+    const closeButton = document.querySelector('.fa-xmark');
+    const headingCard = document.querySelector('.card2 h3');
+    const messageCard = document.querySelector('.card2 h2');
+    let messageInterval;
 
+    const resetCardCopy = () => {
+        if (headingCard) {
+            headingCard.style.removeProperty('animation');
+            headingCard.style.opacity = '0';
+            headingCard.style.visibility = 'hidden';
+        }
+        if (messageCard) {
+            messageCard.style.removeProperty('animation');
+            messageCard.classList.remove('visible');
+            messageCard.textContent = '';
+        }
+    };
 
+    const animateMessage = () => {
+        if (!messageCard) return;
+        clearInterval(messageInterval);
+        const fullText = (messageCard.dataset.fullText || messageCard.innerText || "").trim();
+        messageCard.dataset.fullText = fullText;
+        messageCard.textContent = '';
+        messageCard.classList.add('visible');
+        let idx = 0;
+        messageInterval = setInterval(() => {
+            messageCard.textContent += fullText[idx] || '';
+            idx++;
+            if (idx >= fullText.length) {
+                clearInterval(messageInterval);
+            }
+        }, 35);
+    };
 
-    let mailBox = document.querySelector('.mail')
-    let boxmail = document.querySelector('.boxMail')
-    var close = document.querySelector('.fa-xmark')
-    mailBox.onclick = function () {
-        mailBox.classList.toggle('active')
-        boxmail.classList.add('active')
-    }
+    const playCardTimeline = () => {
+        if (!boxmailContainer) return;
+        boxmailContainer.classList.remove('play');
+        void boxmailContainer.offsetWidth;
+        resetCardCopy();
+        boxmailContainer.classList.add('play');
+        animateMessage();
+    };
 
-    close.addEventListener('click', function () {
-        boxmail.classList.remove('active')
-    })
+    const closeOverlay = () => {
+        boxmail.classList.remove('active');
+        mailBox?.classList.remove('active');
+        boxmailContainer?.classList.remove('play');
+        clearInterval(messageInterval);
+    };
+
+    mailBox?.addEventListener('click', () => {
+        mailBox.classList.add('active');
+        boxmail.classList.add('active');
+        playCardTimeline();
+    });
+
+    closeButton?.addEventListener('click', closeOverlay);
+    boxmail?.addEventListener('click', (e) => {
+        if (e.target === boxmail) closeOverlay();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeOverlay();
+    });
 </script>
 
 </html>
