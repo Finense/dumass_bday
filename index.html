@@ -189,8 +189,14 @@
     const closeButton = document.querySelector('.fa-xmark');
     const headingCard = document.querySelector('.card2 h3');
     const messageCard = document.querySelector('.card2 h2');
-    if (messageCard && !messageCard.dataset.fullText) {
-        messageCard.dataset.fullText = (messageCard.innerText || letterMessage).trim();
+    const headingTextDefault = headingCard ? (headingCard.dataset.fullText || headingCard.innerText || "To Thy Dumass!") : "";
+    if (headingCard) {
+        headingCard.dataset.fullText = headingTextDefault.trim();
+        headingCard.textContent = "";
+    }
+    if (messageCard) {
+        messageCard.dataset.fullText = (messageCard.dataset.fullText || messageCard.innerText || letterMessage).trim();
+        messageCard.textContent = "";
     }
     let messageInterval;
 
@@ -200,6 +206,7 @@
             headingCard.style.opacity = '0';
             headingCard.style.visibility = 'hidden';
             headingCard.classList.remove('visible');
+            headingCard.textContent = "";
         }
         if (messageCard) {
             messageCard.style.removeProperty('animation');
@@ -244,6 +251,9 @@
     mailBox?.addEventListener('click', () => {
         mailBox.classList.add('active');
         boxmail.classList.add('active');
+        if (headingCard) {
+            headingCard.textContent = headingCard.dataset.fullText || headingTextDefault;
+        }
         playCardTimeline();
         headingCard?.classList.add('visible');
         messageCard?.classList.add('visible', 'steady');
