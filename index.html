@@ -237,6 +237,10 @@
         boxmailContainer.classList.remove('play');
         void boxmailContainer.offsetWidth;
         resetCardCopy();
+        if (headingCard) {
+            headingCard.textContent = headingCard.dataset.fullText || headingTextDefault;
+            headingCard.classList.add('visible');
+        }
         boxmailContainer.classList.add('play');
         animateMessage();
     };
@@ -251,11 +255,7 @@
     mailBox?.addEventListener('click', () => {
         mailBox.classList.add('active');
         boxmail.classList.add('active');
-        if (headingCard) {
-            headingCard.textContent = headingCard.dataset.fullText || headingTextDefault;
-        }
         playCardTimeline();
-        headingCard?.classList.add('visible');
         messageCard?.classList.add('visible', 'steady');
     });
 
