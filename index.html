@@ -100,18 +100,18 @@
                 </div>
             </div>
         </div>
-        <div class="decorate_star star1" style="--t: 15s;"></div>
-        <div class="decorate_star star2" style="--t: 15.2s;"></div>
-        <div class="decorate_star star3" style="--t: 15.4s;"></div>
-        <div class="decorate_star star4" style="--t: 15.6s;"></div>
-        <div class="decorate_star star5" style="--t: 15.8s;"></div>
-        <div class="decorate_flower--one" style="--t: 15s;">
+        <div class="decorate_star star1" style="--t: 9s;"></div>
+        <div class="decorate_star star2" style="--t: 9.2s;"></div>
+        <div class="decorate_star star3" style="--t: 9.4s;"></div>
+        <div class="decorate_star star4" style="--t: 9.6s;"></div>
+        <div class="decorate_star star5" style="--t: 9.8s;"></div>
+        <div class="decorate_flower--one" style="--t: 9.2s;">
             <img width="20" src="./images/decorate_flower.png" alt="">
         </div>
-        <div class="decorate_flower--two" style="--t: 15.3s;">
+        <div class="decorate_flower--two" style="--t: 9.5s;">
             <img width="20" src="./images/decorate_flower.png" alt="">
         </div>
-        <div class="decorate_flower--three" style="--t: 15.6s;">
+        <div class="decorate_flower--three" style="--t: 9.8s;">
             <img width="20" src="./images/decorate_flower.png" alt="">
         </div>
         <div class="decorate_bottom">
@@ -199,10 +199,11 @@
             headingCard.style.removeProperty('animation');
             headingCard.style.opacity = '0';
             headingCard.style.visibility = 'hidden';
+            headingCard.classList.remove('visible');
         }
         if (messageCard) {
             messageCard.style.removeProperty('animation');
-            messageCard.classList.remove('visible');
+            messageCard.classList.remove('visible', 'steady');
             messageCard.textContent = '';
         }
     };
@@ -244,6 +245,8 @@
         mailBox.classList.add('active');
         boxmail.classList.add('active');
         playCardTimeline();
+        headingCard?.classList.add('visible');
+        messageCard?.classList.add('visible', 'steady');
     });
 
     closeButton?.addEventListener('click', closeOverlay);
