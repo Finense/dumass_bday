@@ -189,9 +189,9 @@
     const closeButton = document.querySelector('.fa-xmark');
     const headingCard = document.querySelector('.card2 h3');
     const messageCard = document.querySelector('.card2 h2');
-    const headingTextDefault = headingCard ? (headingCard.dataset.fullText || headingCard.innerText || "To Thy Dumass!") : "";
+    const headingTextDefault = headingCard ? (headingCard.dataset.fullText || headingCard.innerText || "To Thy Dumass!") : "To Thy Dumass!";
     if (headingCard) {
-        headingCard.dataset.fullText = headingTextDefault.trim();
+        headingCard.dataset.fullText = (headingTextDefault.trim() || "To Thy Dumass!");
         headingCard.textContent = "";
     }
     if (messageCard) {
